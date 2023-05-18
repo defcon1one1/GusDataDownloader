@@ -1,0 +1,56 @@
+﻿<Window x:Class="GusDataDownloader.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GusDataDownloader"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="5">
+            <TextBlock Text="Page Number:" VerticalAlignment="Center"/>
+            <TextBox x:Name="pageNumberTextBox" Width="50" Margin="5">1</TextBox>
+            <TextBlock Text="Records per Page:" VerticalAlignment="Center" Margin="10,0,0,0"/>
+            <ComboBox SelectedIndex="0" x:Name="recordsPerPageComboBox" Width="50" Margin="5">
+                <ComboBoxItem Content="10"/>
+                <ComboBoxItem Content="20"/>
+                <ComboBoxItem Content="50"/>
+            </ComboBox>
+            <Button Content="Apply" Margin="10,0,0,0" Click="ApplyButton_Click"/>
+        </StackPanel>
+        <DataGrid Grid.Row="1" AutoGenerateColumns="False" ItemsSource="{Binding DisplayedAreas}">
+            <DataGrid.RowStyle>
+                <Style TargetType="DataGridRow">
+                    <Style.Triggers>
+
+                        <DataTrigger Binding="{Binding NazwaPoziom}" Value="Temat">
+                            <Setter Property="Background" Value="Green"/>
+                        </DataTrigger>
+
+                        <DataTrigger Binding="{Binding NazwaPoziom}" Value="Zakres informacyjny">
+                            <Setter Property="Background" Value="Red"/>
+                        </DataTrigger>
+
+                        <DataTrigger Binding="{Binding NazwaPoziom}" Value="Dziedzina">
+                            <Setter Property="Background" Value="Yellow"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </DataGrid.RowStyle>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="id" Binding="{Binding Id}"/>
+                <DataGridTextColumn Header="nazwa" Binding="{Binding Nazwa}"/>
+                <DataGridTextColumn Header="id-nadrzedny-element" Binding="{Binding IdNadrzednyElement}"/>
+                <DataGridTextColumn Header="id-poziom" Binding="{Binding IdPoziom}"/>
+                <DataGridTextColumn Header="nazwa-poziom" Binding="{Binding NazwaPoziom}"/>
+                <DataGridTextColumn Header="czy-zmienne" Binding="{Binding CzyZmienne}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Window>
